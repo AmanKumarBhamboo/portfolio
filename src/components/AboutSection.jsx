@@ -15,7 +15,7 @@ export const AboutSection = () => {
         setResponse("");
 
         try {
-            const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/ai/ask`, {
+            const res = await fetch("/api/ai/ask", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
