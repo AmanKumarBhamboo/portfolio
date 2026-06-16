@@ -1,5 +1,5 @@
 import express from "express";
-import { pool } from "../config/db.js";
+import { getPool } from "../config/db.js";
 
 const router = express.Router();
 
@@ -8,7 +8,7 @@ const router = express.Router();
    ========================= */
 router.get("/db-test", async (req, res) => {
     try {
-        const result = await pool.query("SELECT NOW()");
+        const result = await getPool().query("SELECT NOW()");
         res.json({
             success: true,
             time: result.rows[0],
@@ -29,7 +29,7 @@ router.post("/", async (req, res) => {
     const { name, email, message } = req.body;
 
     try {
-        const result = await pool.query(
+        const result = await getPool().query(
             "INSERT INTO contacts (name, email, message) VALUES ($1, $2, $3) RETURNING *",
             [name, email, message]
         );

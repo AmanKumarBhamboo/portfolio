@@ -1,10 +1,81 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aman Kumar Bhamboo - Portfolio</title>
+    <script>
+      (function() {
+        var theme = localStorage.getItem("portfolio-theme");
+        if (theme === "light") {
+          document.documentElement.classList.remove("dark");
+        } else {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
+
+    <!-- Primary Meta Tags -->
+    <title>Aman Kumar Bhamboo - Data Analyst & Researcher | Portfolio</title>
+    <meta name="title" content="Aman Kumar Bhamboo - Data Analyst & Researcher | Portfolio" />
+    <meta name="description" content="Data Analyst and Researcher specializing in data analysis, research insights, and data visualization. Explore projects, publications, and skills of Aman Kumar Bhamboo." />
+    <meta name="keywords" content="Aman Bhamboo, Aman Kumar Bhamboo, data analyst, researcher, portfolio, data analysis, data visualization, brain MRI segmentation, Jhunjhunu" />
+    <meta name="author" content="Aman Kumar Bhamboo" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://amanbhamboo.vercel.app/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://amanbhamboo.vercel.app/" />
+    <meta property="og:site_name" content="Aman Kumar Bhamboo - Portfolio" />
+    <meta property="og:title" content="Aman Kumar Bhamboo - Data Analyst & Researcher | Portfolio" />
+    <meta property="og:description" content="Data Analyst and Researcher specializing in data analysis, research insights, and data visualization." />
+    <meta property="og:image" content="https://amanbhamboo.vercel.app/og-image.png" />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="720" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://amanbhamboo.vercel.app/" />
+    <meta name="twitter:title" content="Aman Kumar Bhamboo - Data Analyst & Researcher | Portfolio" />
+    <meta name="twitter:description" content="Data Analyst and Researcher specializing in data analysis, research insights, and data visualization." />
+    <meta name="twitter:image" content="https://amanbhamboo.vercel.app/og-image.png" />
+
+    <!-- Theme -->
+    <meta name="theme-color" content="#7c3aed" />
+    <meta name="msapplication-TileColor" content="#7c3aed" />
+
+    <!-- Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Aman Kumar Bhamboo",
+        "alternateName": "Aman Bhamboo",
+        "jobTitle": "Data Analyst and Researcher",
+        "url": "https://amanbhamboo.vercel.app/",
+        "sameAs": [
+          "https://www.linkedin.com/in/aman1402/",
+          "https://github.com/AmanKumarBhamboo",
+          "https://www.instagram.com/__aman___1402/"
+        ],
+        "email": "amankumarbhamboo14022005@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Jhunjhunu",
+          "addressCountry": "India"
+        }
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

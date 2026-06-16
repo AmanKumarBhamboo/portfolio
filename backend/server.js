@@ -1,11 +1,14 @@
+import dotenv from "dotenv";
+import { fileURLToPath } from "url";
+import path from "path";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+dotenv.config({ path: path.resolve(__dirname, "../.env") });
+
 import express from "express";
 import cors from "cors";
-import dotenv from "dotenv";
 
-import aiRoutes from "./routes/ai.routes.js";
 import contactRoutes from "./routes/contact.routes.js";
-
-dotenv.config();
 
 const app = express();
 const PORT = 5050;
@@ -27,7 +30,6 @@ app.get("/test", (req, res) => {
 });
 
 /* 🔹 ROUTES */
-app.use("/api/ai", aiRoutes);
 app.use("/api/contact", contactRoutes);
 
 if (process.env.NODE_ENV !== "production") {

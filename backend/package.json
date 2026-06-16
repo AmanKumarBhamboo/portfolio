@@ -7,7 +7,6 @@
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.4.1",
-    "express": "^4.19.2",
-    "@google/generative-ai": "^0.7.1"
+    "express": "^4.19.2"
   }
 }

@@ -1,4 +1,4 @@
-import { pool } from "../config/db.js";
+import { getPool } from "../config/db.js";
 
 export const submitContact = async (req, res) => {
     const { name, email, message } = req.body;
@@ -8,7 +8,7 @@ export const submitContact = async (req, res) => {
     }
 
     try {
-        await pool.query(
+        await getPool().query(
             "INSERT INTO contacts (name, email, message) VALUES ($1, $2, $3)",
             [name, email, message]
         );

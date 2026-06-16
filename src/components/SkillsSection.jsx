@@ -2,118 +2,95 @@ import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
 const skills = [
-  // Data Analysis
-  { 
-    name: "Python", 
-    level: 90, 
+  // Data Analysis & Core Analytics
+  {
+    name: "Python (Pandas & NumPy)",
+    level: 92,
     category: "analysis",
-    projects: "Brain MRI Segmentation, Titanic Survival Prediction, House Prices Prediction" 
+    projects: "Cleaned 9 raw CSVs for Brazilian E-commerce; Built LAPD Crime config-driven Python ETL pipeline."
   },
-  { 
-    name: "Pandas", 
-    level: 90, 
+  {
+    name: "Exploratory Data Analysis (EDA)",
+    level: 90,
     category: "analysis",
-    projects: "Titanic Kaggle, House Prices Kaggle, Brain MRI Dataset Handling"
+    projects: "Uncovered peak crime hours & weapon patterns across 28 attributes in 3.1M LAPD records."
   },
-  { 
-    name: "NumPy", 
-    level: 85, 
+  {
+    name: "Cohort & Retention Analysis",
+    level: 88,
     category: "analysis",
-    projects: "All ML/DL projects (numerical operations, array manipulation)"
+    projects: "Pinpointed 70% churn within 30 days using cohort pivot queries to design retention strategies."
   },
-  { 
-    name: "Exploratory Data Analysis (EDA)", 
-    level: 90, 
+  {
+    name: "Business Metric Design",
+    level: 85,
     category: "analysis",
-    projects: "Titanic Kaggle, House Prices Kaggle, Brain MRI Dataset Analysis"
-  },
-  { 
-    name: "Data Cleaning & Preprocessing", 
-    level: 88, 
-    category: "analysis",
-    projects: "Titanic Kaggle, House Prices Kaggle, Brain MRI Segmentation"
+    projects: "Tracked and computed core KPIs: CRR, RPR, LTV, CSAT, and NPS from raw marketplace order data."
   },
 
-  // Machine Learning & Research
-  { 
-    name: "Machine Learning", 
-    level: 80, 
-    category: "ml",
-    projects: "Titanic Survival Prediction, House Prices Prediction"
+  // SQL & Business Intelligence
+  {
+    name: "Advanced SQL (PostgreSQL/MySQL)",
+    level: 90,
+    category: "sql_bi",
+    projects: "Computed LTV & CRR via Window Functions, CTEs, and cohort pivot queries on large datasets."
   },
-  { 
-    name: "Scikit-learn", 
-    level: 80, 
-    category: "ml",
-    projects: "Titanic Kaggle (Random Forest), House Prices Kaggle"
+  {
+    name: "Tableau (Data Storytelling)",
+    level: 88,
+    category: "sql_bi",
+    projects: "Built 4-page executive dashboards with LOD expressions & parameter actions for 1GB+ datasets."
   },
-  { 
-    name: "Deep Learning (Basics)", 
-    level: 70, 
-    category: "ml",
-    projects: "Brain MRI Tumor Segmentation (U-Net, CNN fundamentals)"
-  },
-  { 
-    name: "Statistical Analysis", 
-    level: 85, 
-    category: "ml",
-    projects: "Titanic Kaggle, Brain MRI Project (uncertainty estimation)"
-  },
-  { 
-    name: "Research Methodologies", 
-    level: 85, 
-    category: "ml",
-    projects: "Brain MRI Segmentation (IEEE-format research paper)"
+  {
+    name: "Data Modeling",
+    level: 82,
+    category: "sql_bi",
+    projects: "Normalized fragmented raw schemas into structured PostgreSQL databases for analytical workflows."
   },
 
-  // Databases & Querying
-  { 
-    name: "SQL", 
-    level: 85, 
-    category: "database",
-    projects: "Conceptual usage in data querying and analysis workflows"
+  // Data Engineering & Excel
+  {
+    name: "ETL Pipeline Development",
+    level: 85,
+    category: "etl_excel",
+    projects: "Engineered YAML-driven Python pipeline processing 3.1M records, cutting data prep to under 6 mins."
   },
-  { 
-    name: "MySQL / PostgreSQL", 
-    level: 75, 
-    category: "database",
-    projects: "Database schema understanding and data modeling concepts"
+  {
+    name: "Advanced Excel",
+    level: 85,
+    category: "etl_excel",
+    projects: "Proficient in VLOOKUPs, INDEX/MATCH, Pivot Tables, and Power Query for quick data manipulation."
   },
-  { 
-    name: "Data Modeling", 
-    level: 75, 
-    category: "database",
-    projects: "Portfolio backend & AI project database design"
+  {
+    name: "Spatial & Trend Analysis",
+    level: 83,
+    category: "etl_excel",
+    projects: "Identified geographic hotspots via LAT/LON spatial clustering and regional fulfillment bottlenecks."
   },
 
-  // Tools & Visualization
-  { 
-    name: "Matplotlib / Seaborn", 
-    level: 85, 
+  // Tools & Research
+  {
+    name: "Matplotlib & Seaborn",
+    level: 85,
     category: "tools",
-    projects: "Titanic Kaggle, House Prices Kaggle, Brain MRI visualizations"
+    projects: "Visualized demographic distributions, crime trends, and statistical insights during EDA."
   },
-  { 
-    name: "Power BI / Tableau (Basics)", 
-    level: 70, 
+  {
+    name: "Statistical Analysis & Research",
+    level: 85,
     category: "tools",
-    projects: "Exploratory dashboards and visualization practice"
+    projects: "IEEE STCR 2025 published paper benchmarking MRI dataset architectures across computational efficiency."
   },
-  { 
-    name: "Git & GitHub", 
-    level: 85, 
+  {
+    name: "Git, GitHub & Jupyter",
+    level: 88,
     category: "tools",
-    projects: "All projects (version control, collaboration, experiment tracking)"
-  },
-  { 
-    name: "Jupyter Notebook", 
-    level: 90, 
-    category: "tools",
-    projects: "All data analysis, machine learning, and deep learning experimentation"
-  },
+    projects: "Version control for pipeline scripts, analytics repositories, and shared interactive notebooks."
+  }
 ];
 
-const categories = ["all", "analysis", "ml", "database", "tools"];
+// Updated categories to match the Data Analyst profile
+const categories = ["all", "analysis", "sql_bi", "etl_excel", "tools"];
 
 export const SkillsSection = () => {
   const [activeCategory, setActiveCategory] = useState("all");
@@ -124,107 +101,105 @@ export const SkillsSection = () => {
     return activeCategory === "all" || skill.category === activeCategory;
   });
 
-  // Reset rotation when category changes
   useEffect(() => {
     setStartIndex(0);
     setIsAnimating(false);
   }, [activeCategory]);
 
-  // Rotation interval
   useEffect(() => {
     if (filteredSkills.length <= 6) return;
 
     const interval = setInterval(() => {
-      setIsAnimating(true); // Start fade out
+      setIsAnimating(true);
 
       setTimeout(() => {
         setStartIndex((prev) => (prev + 6) % filteredSkills.length);
-        setIsAnimating(false); // Start fade in (after swap)
-      }, 600); // 600ms matching the flip-out duration
-    }, 3000); // Interval
+        setIsAnimating(false);
+      }, 600);
+    }, 3000);
 
     return () => clearInterval(interval);
   }, [filteredSkills.length, activeCategory]);
 
-  // Derive visible skills with wrap-around logic
   const visibleSkills =
-    filteredSkills.length <= 6
-      ? filteredSkills
-      : Array.from({ length: 6 }).map((_, i) => {
-          return filteredSkills[(startIndex + i) % filteredSkills.length];
-        });
+      filteredSkills.length <= 6
+          ? filteredSkills
+          : Array.from({ length: 6 }).map((_, i) => {
+            return filteredSkills[(startIndex + i) % filteredSkills.length];
+          });
 
   return (
-    <section id="skills" className="py-24 px-4 relative bg-secondary/30">
-      <div className="container mx-auto max-w-5xl">
-        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
-          My <span className="text-primary">Skills</span>
-        </h2>
+      <section id="skills" className="py-24 px-4 relative bg-secondary/30">
+        <div className="container mx-auto max-w-5xl">
+          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
+            My <span className="text-primary">Skills</span>
+          </h2>
 
-        {/* Category Filters */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
-          {categories.map((category, key) => (
-            <button
-              key={key}
-              onClick={() => setActiveCategory(category)}
-              className={cn(
-                "px-5 py-2 rounded-full transition-colors duration-300 capitalize",
-                activeCategory === category
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-secondary/70 text-foreground hover:bg-secondary"
-              )}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
+          {/* Category Filters */}
+          <div className="flex flex-wrap justify-center gap-4 mb-12">
+            {categories.map((category, key) => (
+                <button
+                    key={key}
+                    onClick={() => setActiveCategory(category)}
+                    className={cn(
+                        "px-5 py-2 rounded-full transition-colors duration-300 capitalize text-sm font-medium",
+                        activeCategory === category
+                            ? "bg-primary text-primary-foreground"
+                            : "bg-secondary/70 text-foreground hover:bg-secondary"
+                    )}
+                >
+                  {category === "sql_bi" ? "SQL & BI" : category === "etl_excel" ? "ETL & Excel" : category}
+                </button>
+            ))}
+          </div>
 
-        {/* Skills Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {visibleSkills.map((skill, index) => (
-            <div
-              key={index}
-              className="bg-card p-6 rounded-lg shadow-xs card-hover h-[250px] flex flex-col overflow-hidden perspective-1000"
-            >
-              <div
-                key={`${skill.name}-${startIndex}`}
-                className={cn(
-                  "flex-1 flex flex-col",
-                  isAnimating ? "animate-flip-out" : "animate-flip-in"
-                )}
-                style={{
-                  animationDelay: "0ms",
-                }}
-              >
-                <div className="text-left mb-4">
-                  <h3 className="font-semibold text-lg text-primary">
-                    {skill.name}
-                  </h3>
-                </div>
-
-                <div className="w-full bg-secondary/50 h-2 rounded-full overflow-hidden">
+          {/* Skills Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {visibleSkills.map((skill, index) => (
+                <div
+                    key={index}
+                    className="bg-card p-6 rounded-lg shadow-xs card-hover h-[250px] flex flex-col overflow-hidden perspective-1000 border border-border/40"
+                >
                   <div
-                    className="bg-primary h-2 rounded-full origin-left animate-[grow_1.5s_ease-out]"
-                    style={{ width: `${skill.level}%` }}
-                  />
-                </div>
+                      key={`${skill.name}-${startIndex}`}
+                      className={cn(
+                          "flex-1 flex flex-col",
+                          isAnimating ? "animate-flip-out" : "animate-flip-in"
+                      )}
+                      style={{
+                        animationDelay: "0ms",
+                      }}
+                  >
+                    <div className="text-left mb-4">
+                      <h3 className="font-semibold text-base md:text-lg text-primary tracking-tight line-clamp-1">
+                        {skill.name}
+                      </h3>
+                    </div>
 
-                <div className="text-right mt-1 mb-auto">
-                  <span className="text-sm text-muted-foreground">
+                    <div className="w-full bg-secondary/50 h-2 rounded-full overflow-hidden">
+                      <div
+                          className="bg-primary h-2 rounded-full origin-left animate-[grow_1.5s_ease-out]"
+                          style={{ width: `${skill.level}%` }}
+                      />
+                    </div>
+
+                    <div className="text-right mt-1 mb-auto">
+                  <span className="text-xs text-muted-foreground font-mono">
                     {skill.level}%
                   </span>
-                </div>
+                    </div>
 
-                <div className="mt-4 pt-3 border-t border-border/50">
-                  <p className="text-xs text-foreground/80 break-words leading-relaxed line-clamp-2" title={skill.projects}>
-                    {skill.projects}
-                  </p>
+                    <div className="mt-4 pt-3 border-t border-border/50">
+                      <p className="text-xs text-foreground/80 break-words leading-relaxed line-clamp-3" title={skill.projects}>
+                        <strong className="text-foreground/90 font-medium">Impact: </strong>
+                        {skill.projects}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
   );
 };

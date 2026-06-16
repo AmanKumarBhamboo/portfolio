@@ -1,7 +1,10 @@
-import { pool } from "../config/db.js";
 import dotenv from "dotenv";
+import { fileURLToPath } from "url";
+import path from "path";
+import { getPool } from "../config/db.js";
 
-dotenv.config();
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+dotenv.config({ path: path.resolve(__dirname, "../../.env") });
 
 const createTableQuery = `
     CREATE TABLE IF NOT EXISTS contacts (
@@ -16,11 +19,11 @@ const createTableQuery = `
 const initDB = async () => {
     try {
         console.log("🔌 Connecting to database...");
-        await pool.query(createTableQuery);
+        await getPool().query(createTableQuery);
         console.log("✅ 'contacts' table created or already exists.");
         
         // Optional: Verify by selecting
-        const res = await pool.query("SELECT NOW()");
+        const res = await getPool().query("SELECT NOW()");
         console.log("🕒 Database time:", res.rows[0].now);
         
         process.exit(0);
