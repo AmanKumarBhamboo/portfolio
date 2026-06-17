@@ -8,6 +8,7 @@ import { ProjectsSection } from "../components/ProjectsSection";
 import { PublicationsSection } from "../components/PublicationsSection";
 import { ContactSection } from "../components/ContactSection";
 import { Footer } from "../components/Footer";
+import { MusicPlayer } from "@/components/MusicPlayer";
 
 export const Home = () => {
   return (
@@ -56,6 +57,8 @@ export const Home = () => {
           <Footer />
         </section>
       </main>
+
+      <MusicPlayer />
     </div>
     </>
   );
