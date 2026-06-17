@@ -15,11 +15,16 @@ export const Home = () => {
     <>
       <Helmet>
         <title>Aman Kumar Bhamboo - Data Analyst & Researcher | Portfolio</title>
-        <meta name="description" content="Data Analyst and Researcher specializing in data analysis, research insights, and data visualization. Explore projects, publications, and skills of Aman Kumar Bhamboo." />
+        <meta name="description" content="Data Analyst and Researcher specializing in Python, SQL, Tableau, and data visualization. Explore projects in brain MRI segmentation, ETL pipelines, and business intelligence by Aman Kumar Bhamboo." />
+        <meta name="keywords" content="Aman Bhamboo, Aman Kumar Bhamboo, data analyst, Python, SQL, Tableau, portfolio, data visualization, brain MRI, ETL, Jhunjhunu" />
         <meta property="og:title" content="Aman Kumar Bhamboo - Data Analyst & Researcher | Portfolio" />
-        <meta property="og:description" content="Data Analyst and Researcher specializing in data analysis, research insights, and data visualization." />
+        <meta property="og:description" content="Data Analyst and Researcher specializing in Python, SQL, Tableau, and data visualization. Brain MRI segmentation, ETL pipelines, and BI projects." />
+        <meta property="og:image" content="https://amanbhamboo.vercel.app/og-image.png" />
+        <meta property="og:url" content="https://amanbhamboo.vercel.app/" />
         <meta name="twitter:title" content="Aman Kumar Bhamboo - Data Analyst & Researcher | Portfolio" />
-        <meta name="twitter:description" content="Data Analyst and Researcher specializing in data analysis, research insights, and data visualization." />
+        <meta name="twitter:description" content="Data Analyst and Researcher specializing in Python, SQL, Tableau, and data visualization. Brain MRI segmentation, ETL pipelines, and BI projects." />
+        <meta name="twitter:image" content="https://amanbhamboo.vercel.app/og-image.png" />
+        <meta name="twitter:card" content="summary_large_image" />
       </Helmet>
       <div className="h-screen w-full overflow-y-scroll snap-y snap-mandatory bg-background text-foreground overflow-x-hidden scroll-smooth">
       {/* Background Effects */}

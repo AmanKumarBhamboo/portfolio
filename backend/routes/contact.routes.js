@@ -28,22 +28,22 @@ router.get("/db-test", async (req, res) => {
 router.post("/", async (req, res) => {
     const { name, email, message } = req.body;
 
+    if (!name || !email || !message) {
+        return res.status(400).json({ error: "All fields are required" });
+    }
+
     try {
-        const result = await getPool().query(
+        await getPool().query(
             "INSERT INTO contacts (name, email, message) VALUES ($1, $2, $3) RETURNING *",
             [name, email, message]
         );
 
-        res.json({
-            success: true,
-            saved: result.rows[0],
-        });
+        res.json({ success: true });
     } catch (error) {
-        console.error("DB INSERT ERROR FULL:", error); // 👈 FULL ERROR
-
+        console.error("DB INSERT ERROR:", error);
         res.status(500).json({
             success: false,
-            error: error.message, // 👈 REAL ERROR MESSAGE
+            error: error.message,
         });
     }
 });
