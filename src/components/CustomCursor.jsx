@@ -6,6 +6,8 @@ export const CustomCursor = () => {
   const hoverRef = useRef("none");
 
   useEffect(() => {
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+
     let mx = 0;
     let my = 0;
     let cx = 0;

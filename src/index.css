@@ -230,6 +230,12 @@
   a, button, input, textarea, [role="button"] {
     cursor: none;
   }
+
+  @media (pointer: coarse) {
+    body, a, button, input, textarea, [role="button"] {
+      cursor: auto;
+    }
+  }
 }
 
 @utility container {
