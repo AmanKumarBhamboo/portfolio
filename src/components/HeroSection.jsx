@@ -12,7 +12,7 @@ export const HeroSection = () => {
             <span className="opacity-0 animate-fade-in"> Hi, I&apos;m<br/></span>
             <span className="text-primary opacity-0 animate-fade-in-delay-1">
               {" "}
-              Aman <span className="hidden md:inline">Kumar</span>
+              Aman
             </span>
             <span className="text-gradient ml-2 opacity-0 animate-fade-in-delay-2">
               {" "}

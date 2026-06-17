@@ -78,7 +78,7 @@ export const PublicationsSection = () => {
     return (
       <section id="publications" className="py-24 px-4 relative">
         <div className="container mx-auto max-w-5xl">
-          <div className="max-w-4xl">
+          <div className="max-w-4xl animate-smooth-appear">
             <div className="bg-card rounded-lg shadow-xs border border-border/40">
               <div className="p-8">
                 <div className="flex items-center gap-3 mb-6">
