@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ArrowLeft, ArrowRight, MapPin, ShoppingCart, TrendingDown, ExternalLink, Github } from "lucide-react";
 
 const projects = [
@@ -9,6 +9,7 @@ const projects = [
     image: "/projects/project1.png",
     githubUrl: "https://github.com/AmanKumarBhamboo/la-crime-Analysis",
     tableauUrl: "https://public.tableau.com/app/profile/aman.bhamboo/viz/MappingCrimeinLosAngles/Dashboard1",
+    tableauViz: "MappingCrimeinLosAngles/Dashboard1",
     summary: "A safety map and history book combined — analyzing 14 years of crime data across Los Angeles to show leaders and police exactly where, when, and to whom crimes are happening.",
     impact: "City planners and police can identify high-crime neighborhoods and times, enabling smarter patrol deployment and data-driven safety policies.",
     scope: "Tracking over 209,000 total crime incidents across Los Angeles from 2010 to 2024, covering demographics and time trends.",
@@ -31,6 +32,7 @@ const projects = [
     image: "/projects/project2.png",
     githubUrl: "https://github.com/AmanKumarBhamboo/olist_analytics",
     tableauUrl: "https://public.tableau.com/app/profile/aman.bhamboo/viz/OlistAnalyticsDashboard_17812419259250/OlistExecutiveOverview",
+    tableauViz: "OlistAnalyticsDashboard_17812419259250/FulfillmentLogistics",
     summary: "A health check-up report for a massive online marketplace. Translating messy sales data into clear charts showing revenue, customer satisfaction, and order performance.",
     impact: "Executives can instantly spot sales drops or satisfaction issues and ask targeted questions — keeping the business alive and growing.",
     scope: "Handling nearly 100,000 total orders from over 96,000 unique customers.",
@@ -53,6 +55,7 @@ const projects = [
     image: "/projects/project3.png",
     githubUrl: "https://github.com/AmanKumarBhamboo/does_discount_hurt",
     tableauUrl: "https://public.tableau.com/app/profile/aman.bhamboo/viz/Discounthurts/CorporateRevenueLeakage",
+    tableauViz: "Discounthurts/CorporateRevenueLeakage",
     summary: "A digital detective that catches where money is secretly leaking out of a company due to excessive discounts by cashiers.",
     impact: "Visually proves that as discount percentage rises, profit plummets. Lists every clerk by name so managers can identify who is giving away too much.",
     scope: "Analyzing over ₹229 Billion in total sales across a corporate network.",
@@ -272,6 +275,17 @@ export const ProjectsSection = () => {
 };
 
 const ProjectDetail = ({ project, onBack, onNext }) => {
+  const [showDashboard, setShowDashboard] = useState(false);
+
+  useEffect(() => {
+    if (showDashboard) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [showDashboard]);
+
   return (
     <div className="max-w-5xl mx-auto">
       <div className="bg-card rounded-lg shadow-xs border border-border/40 overflow-hidden">
@@ -316,6 +330,18 @@ const ProjectDetail = ({ project, onBack, onNext }) => {
             </div>
           </div>
 
+          <div className="flex items-center gap-3 pt-2">
+            {project.tableauViz && (
+              <button
+                onClick={() => setShowDashboard(true)}
+                className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors"
+              >
+                <ExternalLink className="h-4 w-4" />
+                Dashboard
+              </button>
+            )}
+          </div>
+
           <div className="flex items-center justify-between pt-4 border-t border-border/40">
             <button
               onClick={onBack}
@@ -334,6 +360,81 @@ const ProjectDetail = ({ project, onBack, onNext }) => {
           </div>
         </div>
       </div>
+
+      {showDashboard && (
+        <div
+          className="fixed inset-0 z-[100] bg-black flex flex-col"
+          onClick={() => setShowDashboard(false)}
+        >
+          <div
+            className="relative flex-1 flex flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setShowDashboard(false)}
+              className="absolute top-4 right-4 z-10 p-2 rounded-full bg-black/50 text-white/80 hover:text-white transition-colors"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <DashboardViz viz={project.tableauViz} />
+          </div>
+        </div>
+      )}
     </div>
   );
+};
+
+const DashboardViz = ({ viz }) => {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    if (!ref.current) return;
+
+    const id = `viz-${Date.now()}`;
+    const workbook = viz.split("/")[0];
+    const prefix = workbook.substring(0, 2);
+
+    ref.current.innerHTML = `
+      <div class='tableauPlaceholder' id='${id}'>
+        <object class='tableauViz' style='display:none;'>
+          <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+          <param name='embed_code_version' value='3' />
+          <param name='name' value='${viz}' />
+          <param name='tabs' value='no' />
+          <param name='toolbar' value='yes' />
+          <param name='static_image' value='https://public.tableau.com/static/images/${prefix}/${viz.replace("/", "%2F")}/1.png' />
+          <param name='animate_transition' value='yes' />
+          <param name='display_static_image' value='yes' />
+          <param name='display_spinner' value='yes' />
+          <param name='display_overlay' value='yes' />
+          <param name='display_count' value='yes' />
+        </object>
+      </div>
+    `;
+
+    const loadViz = () => {
+      const div = document.getElementById(id);
+      if (!div) return;
+      const obj = div.getElementsByTagName("object")[0];
+      if (!obj) return;
+      const w = div.offsetWidth;
+      if (w > 800) { obj.style.width = "100%"; obj.style.height = "100%"; }
+      else if (w > 500) { obj.style.width = "100%"; obj.style.height = "100%"; }
+      else { obj.style.width = "100%"; obj.style.height = "100%"; }
+      if (!document.querySelector('script[src*="viz_v1"]')) {
+        const s = document.createElement("script");
+        s.src = "https://public.tableau.com/javascripts/api/viz_v1.js";
+        div.parentNode.insertBefore(s, div.nextSibling);
+      }
+    };
+
+    const timer = setTimeout(loadViz, 100);
+
+    return () => {
+      clearTimeout(timer);
+      if (ref.current) ref.current.innerHTML = "";
+    };
+  }, [viz]);
+
+  return <div ref={ref} className="flex-1 w-full" />;
 };

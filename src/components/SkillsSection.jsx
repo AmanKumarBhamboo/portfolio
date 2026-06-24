@@ -205,27 +205,6 @@ export const SkillsSection = () => {
                     </h3>
                   </div>
 
-                  <div className="w-full bg-secondary/50 h-2 rounded-full overflow-hidden">
-                    <div
-                      className="h-2 rounded-full origin-left animate-[grow_1.5s_ease-out]"
-                      style={{
-                        width: `${skill.level}%`,
-                        backgroundColor: isHovered ? "#fff" : undefined,
-                      }}
-                    />
-                  </div>
-
-                  <div className="text-right mt-1 mb-auto">
-                    <span
-                      className="text-xs font-mono transition-colors duration-300"
-                      style={{
-                        color: isHovered ? "rgba(255,255,255,0.8)" : undefined,
-                      }}
-                    >
-                      {skill.level}%
-                    </span>
-                  </div>
-
                   <div className="mt-4 pt-3 border-t border-border/50"
                     style={{
                       borderTopColor: isHovered ? "rgba(255,255,255,0.2)" : undefined,

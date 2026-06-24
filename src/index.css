@@ -224,11 +224,9 @@
 
   body {
     @apply bg-background text-foreground;
-    cursor: none;
   }
 
   a, button, input, textarea, [role="button"] {
-    cursor: none;
   }
 
   @media (pointer: coarse) {
