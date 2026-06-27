@@ -1,42 +1,42 @@
 # Aman Bhamboo — Portfolio
 
-Personal portfolio website built with React, Vite, and Tailwind CSS v4. Features a polished light-mode UI, custom cursor, SEO optimization, and a contact backend.
+Personal portfolio website built with React, Vite, and Tailwind CSS v4. Light-mode UI with glassmorphism cards, project case studies, live Tableau dashboard embeds, and SEO optimization.
 
 ## Tech Stack
 
-**Frontend:** React 18, Vite 5, Tailwind CSS v4, Lucide React, React Icons, React Helmet Async  
-**Backend:** Express, PostgreSQL (Neon), Nodemailer  
+**Frontend:** React 18, Vite 5, Tailwind CSS v4, Lucide React, React Icons  
+**Backend:** Express, PostgreSQL (Neon)  
 **Deployment:** Vercel (serverless API + static SPA)
 
 ## Features
 
-- Custom cursor (dot + ring) with hover detection on text and interactive elements
-- Animated typing effect in the hero section
+- Glassmorphism project & skill cards with theme-aligned hover colors (electric blue palette)
+- Projects overview with image cards, Github/Tableau links, and click-to-open detail view
+- Project detail view with left sidebar (project identity + link box)
+- Live Tableau dashboard embed (full-screen modal on desktop; clickable links on mobile)
+- Skills carousel with category filters and flip animation
+- Animated typing effect in hero section
 - Infinite scrolling tech strip with brand icons
-- Smooth scroll snap sections (Hero, About, Skills, Projects, Publications, Contact)
-- Dark/light mode removed — always light mode with warm off-white palette
-- Responsive design with mobile hamburger menu
-- Active section highlight in navbar
 - Publications detail view with crossfade transitions
-- Contact form with PostgreSQL persistence
-- SEO: meta tags, Open Graph, Twitter Cards, JSON-LD structured data, sitemap, robots.txt
-- Background star-fall animation
+- Contact form with PostgreSQL persistence (no email)
+- Background star-fall animation (electric blue)
 - Background music player (local mp3)
-- Lazy-loaded project images
+- SEO: meta tags, Open Graph, Twitter Cards, JSON-LD, sitemap, robots.txt
+- Code-split bundles (vendor, UI icons, app)
+- Font optimization (async Inter with display=swap)
 
 ## Color Palette
 
-| Role       | Color |
-|------------|-------|
-| Background | `#fdfbf7` (warm off-white) |
-| Foreground | `#24272c` (deep charcoal) |
-| Primary    | `#2962ff` (electric blue) |
-| Border     | `#eeebe5` (warm border) |
+| Role       | Color                         |
+|------------|-------------------------------|
+| Background | `#fdfbf7` (warm off-white)    |
+| Foreground | `#24272c` (deep charcoal)     |
+| Primary    | `#2962ff` (electric blue)     |
+| Border     | `#eeebe5` (warm border)       |
 
 ## Getting Started
 
 ```bash
-# Install dependencies
 npm install
 
 # Start dev server (frontend)
@@ -46,7 +46,7 @@ npm run dev
 cd backend && npm install && node server.js
 ```
 
-The Vite dev server proxies `/api` requests to `localhost:5050`.
+Vite dev server proxies `/api` requests to `localhost:5050`.
 
 ## Build
 
@@ -54,7 +54,7 @@ The Vite dev server proxies `/api` requests to `localhost:5050`.
 npm run build
 ```
 
-Output goes to `dist/`.
+Output goes to `dist/`. Produces split chunks: `vendor` (React), `ui` (icons), `index` (app code).
 
 ## Environment Variables (`.env`)
 
@@ -80,4 +80,4 @@ DATABASE_URL=postgresql://...
 
 ## Deployment
 
-Deployed on Vercel. The `vercel.json` rewrites `/api/*` to the serverless function and all other routes to `index.html` for SPA support.
+Deployed on Vercel. `vercel.json` rewrites `/api/*` to the serverless function and all other routes to `index.html` for SPA support.
