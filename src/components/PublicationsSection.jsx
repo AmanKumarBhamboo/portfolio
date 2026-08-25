@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { BookOpen, ExternalLink, UserCheck, ArrowLeft, ArrowRight, Award } from "lucide-react";
+import { Reveal } from "./Reveal";
+import { TerminalWindow } from "./TerminalWindow";
 
 const papers = [
   {
@@ -95,11 +97,12 @@ export const PublicationsSection = () => {
   };
 
   return (
-    <section id="publications" className="py-24 px-4 relative">
-      <div className="container mx-auto max-w-5xl">
-        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
-          My <span className="text-primary">Publications</span>
-        </h2>
+    <section id="publications" className="h-screen py-20 px-4 relative flex flex-col items-center justify-center overflow-y-auto snap-start snap-always">
+      <div className="container mx-auto max-w-5xl w-full">
+        <Reveal className="text-center mb-16">
+          <span className="eyebrow text-center">Research</span>
+          <h2 className="font-serif text-3xl md:text-5xl font-normal">Publications</h2>
+        </Reveal>
 
         <div className="grid grid-cols-1">
           {/* List view */}
@@ -110,24 +113,32 @@ export const PublicationsSection = () => {
                 : "opacity-100 scale-100"
             }`}
           >
+            <Reveal className="mb-10 text-left max-w-xl mx-auto">
+              <TerminalWindow title="aman@bhamboo — ~/publications">
+                <p className="text-primary">
+                  <span className="mr-2">$</span>ls ~/publications
+                </p>
+              </TerminalWindow>
+            </Reveal>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {papers.map((paper) => (
-                <div
+              {papers.map((paper, i) => (
+                <Reveal
                   key={paper.id}
-                  className="bg-card rounded-lg overflow-hidden shadow-xs card-hover border border-border/40 flex flex-col"
+                  delay={i * 120}
+                  className="panel card-hover overflow-hidden flex flex-col"
                 >
                   <div className="p-6 flex flex-col flex-1">
                     <div className="flex items-center gap-3 mb-4">
-                      <div className="p-3 rounded-full bg-primary/10 shrink-0">
-                        <BookOpen className="h-6 w-6 text-primary" />
+                      <div className="p-3 border border-primary/30 shrink-0">
+                        <BookOpen className="h-5 w-5 text-primary" />
                       </div>
-                      <span className="text-xs font-medium px-2 py-1 border rounded-full bg-secondary text-secondary-foreground">
+                      <span className="text-xs uppercase tracking-wider px-2 py-1 border border-border/60 text-muted-foreground">
                         {paper.sector}
                       </span>
                     </div>
 
                     <div className="flex-1 flex flex-col">
-                      <h3 className="text-lg font-semibold mb-2 leading-snug">
+                      <h3 className="font-serif text-xl mb-2 leading-snug">
                         {paper.title}
                       </h3>
                       <p className="text-sm text-muted-foreground mb-1">
@@ -153,7 +164,7 @@ export const PublicationsSection = () => {
                       <div className="mt-auto flex items-center gap-3">
                         <button
                           onClick={() => openDetail(paper.id)}
-                          className="px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors flex items-center gap-2"
+                          className="btn-outline !px-5 !py-2.5"
                         >
                           <UserCheck className="h-4 w-4" />
                           My Contribution
@@ -161,7 +172,7 @@ export const PublicationsSection = () => {
                       </div>
                     </div>
                   </div>
-                </div>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -189,24 +200,24 @@ export const PublicationsSection = () => {
 };
 
 const DetailView = ({ paper, onBack, onNext }) => (
-  <div className="max-w-4xl mx-auto">
-    <div className="bg-card rounded-lg shadow-xs border border-border/40">
-      <div className="p-8 min-h-[35rem]">
+  <div className="max-w-4xl mx-auto text-left">
+    <TerminalWindow title={`aman@bhamboo — ~/publications/paper_${paper.id}.md`}>
+      <div className="min-h-[35rem]">
         <div className="flex items-center gap-3 mb-6">
-          <div className="p-3 rounded-full bg-primary/10 shrink-0">
-            <BookOpen className="h-6 w-6 text-primary" />
+          <div className="p-3 border border-primary/30 shrink-0">
+            <BookOpen className="h-5 w-5 text-primary" />
           </div>
           <div>
-            <span className="text-xs font-medium px-2 py-1 border rounded-full bg-secondary text-secondary-foreground">
+            <span className="text-xs uppercase tracking-wider px-2 py-1 border border-border/60 text-muted-foreground">
               {paper.sector}
             </span>
-            <span className="text-xs text-muted-foreground ml-3">
-              Paper {paper.id} of {2}
+            <span className="text-xs text-muted-foreground ml-3 font-mono">
+              paper {paper.id}/{2}
             </span>
           </div>
         </div>
 
-        <h3 className="text-xl font-semibold mb-4 leading-snug">
+        <h3 className="font-serif text-2xl mb-4 leading-snug">
           {paper.title}
         </h3>
 
@@ -222,14 +233,14 @@ const DetailView = ({ paper, onBack, onNext }) => (
           {paper.skills.map((skill, i) => (
             <span
               key={i}
-              className="px-2 py-1 text-xs font-medium border rounded-full bg-secondary text-secondary-foreground"
+              className="px-2 py-1 text-xs uppercase tracking-wider border border-border/60 text-muted-foreground"
             >
               {skill}
             </span>
           ))}
         </div>
 
-        <h4 className="font-semibold text-base mb-4 flex items-center gap-2">
+        <h4 className="font-serif text-lg mb-4 flex items-center gap-2">
           <UserCheck className="h-5 w-5 text-primary" />
           Core Contribution
         </h4>
@@ -258,13 +269,13 @@ const DetailView = ({ paper, onBack, onNext }) => (
 
           <button
             onClick={onNext}
-            className="px-5 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors flex items-center gap-2"
+            className="btn-solid"
           >
             Next Paper
             <ArrowRight className="h-4 w-4" />
           </button>
         </div>
       </div>
-    </div>
+    </TerminalWindow>
   </div>
 );

@@ -1,7 +1,27 @@
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import { Reveal } from "./Reveal";
+import { TerminalWindow } from "./TerminalWindow";
 
 const skills = [
+  {
+    name: "Rust (Ownership & Borrowing)",
+    level: 55,
+    category: "rust_systems",
+    projects: "Working through Rustlings exercises — ownership, lifetimes, traits, and pattern matching."
+  },
+  {
+    name: "Systems Programming Fundamentals",
+    level: 45,
+    category: "rust_systems",
+    projects: "Building a TCP/HTTP server from scratch in Rust via the CodeCrafters challenge — sockets, HTTP/1.1 parsing, and concurrency."
+  },
+  {
+    name: "CLI & Tooling in Rust",
+    level: 40,
+    category: "rust_systems",
+    projects: "Writing small command-line utilities to internalize the borrow checker and Rust's error-handling patterns."
+  },
   {
     name: "Python (Pandas & NumPy)",
     level: 92,
@@ -82,23 +102,9 @@ const skills = [
   }
 ];
 
-const categories = ["all", "analysis", "sql_bi", "etl_excel", "tools"];
+const categories = ["all", "rust_systems", "analysis", "sql_bi", "etl_excel", "tools"];
 
-const hoverColors = [
-  "#2962ff",
-  "#1a4fbf",
-  "#0d47a1",
-  "#1565c0",
-  "#1976d2",
-  "#2962ff",
-  "#1a4fbf",
-  "#0d47a1",
-  "#1565c0",
-  "#1976d2",
-  "#2962ff",
-  "#1a4fbf",
-  "#0d47a1",
-];
+const TILE_COUNT = 3;
 
 export const SkillsSection = () => {
   const [activeCategory, setActiveCategory] = useState("all");
@@ -116,117 +122,108 @@ export const SkillsSection = () => {
   }, [activeCategory]);
 
   useEffect(() => {
-    if (filteredSkills.length <= 6) return;
+    if (filteredSkills.length <= TILE_COUNT) return;
 
     const interval = setInterval(() => {
       setIsAnimating(true);
 
       setTimeout(() => {
-        setStartIndex((prev) => (prev + 6) % filteredSkills.length);
+        setStartIndex((prev) => (prev + TILE_COUNT) % filteredSkills.length);
         setIsAnimating(false);
-      }, 600);
-    }, 3000);
+      }, 500);
+    }, 3500);
 
     return () => clearInterval(interval);
   }, [filteredSkills.length, activeCategory]);
 
   const visibleSkills =
-    filteredSkills.length <= 6
+    filteredSkills.length <= TILE_COUNT
       ? filteredSkills
-      : Array.from({ length: 6 }).map((_, i) => {
+      : Array.from({ length: TILE_COUNT }).map((_, i) => {
         return filteredSkills[(startIndex + i) % filteredSkills.length];
       });
 
   return (
-    <section id="skills" className="py-24 px-4 relative bg-secondary/30">
-      <div className="container mx-auto max-w-5xl">
-        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
-          My <span className="text-primary">Skills</span>
-        </h2>
+    <section id="skills" className="h-screen py-14 px-4 relative bg-card/30 flex flex-col items-center justify-center overflow-y-auto snap-start snap-always">
+      <div className="container mx-auto max-w-5xl w-full">
+        <Reveal className="text-center mb-16">
+          <span className="eyebrow text-center">Capabilities</span>
+          <h2 className="font-serif text-3xl md:text-5xl font-normal">My Skills</h2>
+        </Reveal>
 
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
+        <Reveal className="flex flex-wrap justify-center gap-8 mb-10">
           {categories.map((category, key) => (
             <button
               key={key}
               onClick={() => setActiveCategory(category)}
               className={cn(
-                "px-5 py-2 rounded-full transition-colors duration-300 capitalize text-sm font-medium",
+                "relative pb-2 text-xs uppercase tracking-[0.2em] capitalize transition-colors duration-300 font-mono",
                 activeCategory === category
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-secondary/70 text-foreground hover:bg-secondary"
+                  ? "text-foreground after:absolute after:bottom-0 after:left-0 after:w-full after:h-px after:bg-primary"
+                  : "text-muted-foreground hover:text-foreground"
               )}
             >
-              {category === "sql_bi" ? "SQL & BI" : category === "etl_excel" ? "ETL & Excel" : category}
+              --{category === "sql_bi"
+                ? "sql-bi"
+                : category === "etl_excel"
+                ? "etl-excel"
+                : category === "rust_systems"
+                ? "rust-systems"
+                : category}
             </button>
           ))}
-        </div>
+        </Reveal>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <Reveal delay={80}>
+          <TerminalWindow title="aman@bhamboo — ~/skills" className="mb-6">
+            <p className="text-primary">
+              <span className="mr-2">$</span>ls skills/ --filter={activeCategory}
+            </p>
+          </TerminalWindow>
+        </Reveal>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {visibleSkills.map((skill, index) => {
-            const color = hoverColors[index % hoverColors.length];
             const isHovered = hoveredIndex === index;
 
             return (
-              <div
+              <Reveal
                 key={index}
+                delay={index * 80}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
-                className="rounded-xl overflow-hidden h-[250px] flex flex-col perspective-1000 cursor-default transition-all duration-500"
-                style={{
-                  backgroundColor: isHovered ? color : "rgba(255,255,255,0.6)",
-                  backdropFilter: "blur(12px)",
-                  WebkitBackdropFilter: "blur(12px)",
-                  border: "1px solid",
-                  borderColor: isHovered ? color : "rgba(238,235,229,0.8)",
-                  boxShadow: isHovered
-                    ? `0 8px 32px ${color}33`
-                    : "0 1px 3px rgba(0,0,0,0.04)",
-                  transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
-                }}
+                className={cn(
+                  "panel h-[250px] flex flex-col cursor-default transition-colors duration-500",
+                  isHovered && "border-primary/50"
+                )}
               >
                 <div
                   key={`${skill.name}-${startIndex}`}
                   className={cn(
-                    "flex-1 flex flex-col p-6",
-                    isAnimating ? "animate-flip-out" : "animate-flip-in"
+                    "flex-1 flex flex-col p-6 transition-opacity duration-500 font-mono",
+                    isAnimating ? "opacity-0" : "opacity-100"
                   )}
-                  style={{
-                    animationDelay: "0ms",
-                  }}
                 >
                   <div className="text-left mb-4">
-                    <h3
-                      className="font-semibold text-base md:text-lg tracking-tight line-clamp-1 transition-colors duration-300"
-                      style={{
-                        color: isHovered ? "#fff" : undefined,
-                      }}
-                    >
+                    <h3 className="font-serif text-lg tracking-tight line-clamp-1">
+                      <span className="text-primary mr-1">›</span>
                       {skill.name}
                     </h3>
                   </div>
 
-                  <div className="mt-4 pt-3 border-t border-border/50"
-                    style={{
-                      borderTopColor: isHovered ? "rgba(255,255,255,0.2)" : undefined,
-                    }}
-                  >
+                  <div className="mt-4 pt-3 border-t border-border/50">
                     <p
-                      className="text-xs break-words leading-relaxed line-clamp-3 transition-colors duration-300"
-                      style={{
-                        color: isHovered ? "rgba(255,255,255,0.9)" : undefined,
-                      }}
+                      className="text-xs break-words leading-relaxed line-clamp-3 text-muted-foreground"
                       title={skill.projects}
                     >
-                      <strong className="font-medium"
-                        style={{
-                          color: isHovered ? "#fff" : undefined,
-                        }}
-                      >Impact: </strong>
+                      <strong className="font-medium text-foreground/80">
+                        {skill.category === "rust_systems" ? "// learning: " : "// impact: "}
+                      </strong>
                       {skill.projects}
                     </p>
                   </div>
                 </div>
-              </div>
+              </Reveal>
             );
           })}
         </div>

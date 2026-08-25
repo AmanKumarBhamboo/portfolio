@@ -10,6 +10,8 @@ import {
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
+import { Reveal } from "./Reveal";
+import { TerminalWindow } from "./TerminalWindow";
 
 export const ContactSection = () => {
   const { toast } = useToast();
@@ -60,74 +62,81 @@ export const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="py-24 px-4 relative bg-secondary/30">
-      <div className="container mx-auto max-w-5xl">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          Get In <span className="text-primary"> Touch</span>
-        </h2>
+    <section id="contact" className="h-screen py-8 px-4 relative bg-card/30 flex flex-col items-center justify-center overflow-y-auto snap-start snap-always">
+      <div className="container mx-auto max-w-5xl w-full">
+        <Reveal className="text-center mb-3">
+          <span className="eyebrow text-center">Connect</span>
+          <h2 className="font-serif text-3xl md:text-5xl font-normal">Get In Touch</h2>
+        </Reveal>
 
-        <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-          Have a project in mind or want to collaborate? Feel free to reach out.
-          I&apos;m always open to discussing new opportunities.
-        </p>
+        <Reveal delay={100}>
+          <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
+            Have a project in mind or want to collaborate? Feel free to reach out.
+            I&apos;m always open to discussing new opportunities.
+          </p>
+        </Reveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* LEFT SIDE */}
-          <div className="space-y-8">
-            <h3 className="text-2xl font-semibold mb-6">Contact Information</h3>
+          <Reveal className="text-left">
+            <TerminalWindow title="aman@bhamboo — ~/contact">
+              <p className="text-primary mb-4">
+                <span className="mr-2">$</span>cat contact.txt
+              </p>
 
-            <div className="space-y-6 text-left">
-              <div className="flex items-start space-x-4">
-                <div className="p-3 rounded-full bg-primary/10">
-                  <Mail className="h-6 w-6 text-primary" />
+              <div className="space-y-3">
+                <div className="flex items-start space-x-4">
+                  <div className="p-3 border border-primary/30 shrink-0">
+                    <Mail className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <h4 className="text-foreground">email:</h4>
+                    <a
+                      href="mailto:amankumarbhamboo14022005@gmail.com"
+                      className="text-muted-foreground hover:text-primary transition-colors break-all"
+                    >
+                      amankumarbhamboo14022005@gmail.com
+                    </a>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-medium">Email</h4>
-                  <a
-                    href="mailto:amankumarbhamboo14022005@gmail.com"
-                    className="text-muted-foreground hover:text-primary transition-colors break-all"
-                  >
-                    amankumarbhamboo14022005@gmail.com
-                  </a>
+
+                <div className="flex items-start space-x-4">
+                  <div className="p-3 border border-primary/30 shrink-0">
+                    <Phone className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <h4 className="text-foreground">phone:</h4>
+                    <a
+                      href="tel:+916367755376"
+                      className="text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      +91 63677 55376
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-4">
+                  <div className="p-3 border border-primary/30 shrink-0">
+                    <MapPin className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <h4 className="text-foreground">location:</h4>
+                    <span className="text-muted-foreground">
+                      Jhunjhunu, India
+                    </span>
+                  </div>
                 </div>
               </div>
 
-              <div className="flex items-start space-x-4">
-                <div className="p-3 rounded-full bg-primary/10">
-                  <Phone className="h-6 w-6 text-primary" />
-                </div>
-                <div>
-                  <h4 className="font-medium">Phone</h4>
-                  <a
-                    href="tel:+916367755376"
-                    className="text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    +91 63677 55376
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-4">
-                <div className="p-3 rounded-full bg-primary/10">
-                  <MapPin className="h-6 w-6 text-primary" />
-                </div>
-                <div>
-                  <h4 className="font-medium">Location</h4>
-                  <span className="text-muted-foreground">
-                    Jhunjhunu, India
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-8">
-              <h4 className="font-medium mb-4">Connect With Me</h4>
-              <div className="flex space-x-4 justify-center">
+              <p className="text-primary mt-3 mb-3">
+                <span className="mr-2">$</span>ls -la ./socials
+              </p>
+              <div className="flex space-x-4">
                 <a
                   href="https://www.linkedin.com/in/aman1402/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-foreground/80 hover:text-primary transition-colors"
+                  className="text-foreground/70 hover:text-primary transition-colors"
                 >
                   <Linkedin />
                 </a>
@@ -135,7 +144,7 @@ export const ContactSection = () => {
                   href="https://www.instagram.com/__aman___1402/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-foreground/80 hover:text-primary transition-colors"
+                  className="text-foreground/70 hover:text-primary transition-colors"
                 >
                   <Instagram />
                 </a>
@@ -143,69 +152,72 @@ export const ContactSection = () => {
                   href="https://github.com/AmanKumarBhamboo"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-foreground/80 hover:text-primary transition-colors"
+                  className="text-foreground/70 hover:text-primary transition-colors"
                 >
                   <Github size={24} />
                 </a>
               </div>
-            </div>
-          </div>
+            </TerminalWindow>
+          </Reveal>
 
           {/* RIGHT SIDE */}
-          <div className="bg-card p-8 rounded-lg shadow-xs">
-            <h3 className="text-2xl font-semibold mb-6">Send a Message</h3>
+          <Reveal delay={150} className="text-left">
+            <TerminalWindow title="aman@bhamboo — ~/contact">
+              <p className="text-primary mb-4">
+                <span className="mr-2">$</span>./send-message.sh
+              </p>
 
-            <form className="space-y-6" onSubmit={handleSubmit}>
-              <div>
-                <label className="block text-sm font-medium mb-2">
-                  Your Name
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  required
-                  className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                  placeholder="Your Name..."
-                />
-              </div>
+              <form className="space-y-3" onSubmit={handleSubmit}>
+                <div>
+                  <label className="block text-xs text-muted-foreground mb-1.5">
+                    <span className="text-primary mr-1">?</span>your name:
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    required
+                    className="w-full px-3 py-2 border border-input bg-background focus:outline-none focus:border-primary transition-colors font-mono text-sm"
+                    placeholder="jane_doe"
+                  />
+                </div>
 
-              <div>
-                <label className="block text-sm font-medium mb-2">
-                  Your Email
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                  placeholder="john@gmail.com"
-                />
-              </div>
+                <div>
+                  <label className="block text-xs text-muted-foreground mb-1.5">
+                    <span className="text-primary mr-1">?</span>your email:
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    className="w-full px-3 py-2 border border-input bg-background focus:outline-none focus:border-primary transition-colors font-mono text-sm"
+                    placeholder="jane@example.com"
+                  />
+                </div>
 
-              <div>
-                <label className="block text-sm font-medium mb-2">
-                  Your Message
-                </label>
-                <textarea
-                  name="message"
-                  required
-                  className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary resize-none"
-                  placeholder="Hello, I'd like to talk about..."
-                />
-              </div>
+                <div>
+                  <label className="block text-xs text-muted-foreground mb-1.5">
+                    <span className="text-primary mr-1">?</span>your message:
+                  </label>
+                  <textarea
+                    name="message"
+                    required
+                    rows={3}
+                    className="w-full px-3 py-2 border border-input bg-background focus:outline-none focus:border-primary transition-colors resize-none font-mono text-sm"
+                    placeholder="Hello, I'd like to talk about..."
+                  />
+                </div>
 
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className={cn(
-                  "cosmic-button w-full flex items-center justify-center gap-2"
-                )}
-              >
-                {isSubmitting ? "Sending..." : "Send Message"}
-                <Send size={16} />
-              </button>
-            </form>
-          </div>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={cn("btn-solid w-full")}
+                >
+                  {isSubmitting ? "sending..." : "send_message()"}
+                  <Send size={16} />
+                </button>
+              </form>
+            </TerminalWindow>
+          </Reveal>
         </div>
       </div>
     </section>

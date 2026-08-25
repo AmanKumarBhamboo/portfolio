@@ -1,12 +1,14 @@
 import { useState, useEffect, useRef } from "react";
 import { ArrowLeft, ArrowRight, MapPin, ShoppingCart, TrendingDown, ExternalLink, Github } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Reveal } from "./Reveal";
+import { TerminalWindow } from "./TerminalWindow";
 
 const projects = [
   {
     id: 1,
     title: "LA Crime Analysis",
     icon: MapPin,
-    image: "/projects/project1.png",
     githubUrl: "https://github.com/AmanKumarBhamboo/la-crime-Analysis",
     tableauUrl: "https://public.tableau.com/app/profile/aman.bhamboo/viz/MappingCrimeinLosAngles/Dashboard1",
     tableauViz: "MappingCrimeinLosAngles/Dashboard1",
@@ -29,7 +31,6 @@ const projects = [
     id: 2,
     title: "Olist Customer Churn / Executive Overview",
     icon: ShoppingCart,
-    image: "/projects/project2.png",
     githubUrl: "https://github.com/AmanKumarBhamboo/olist_analytics",
     tableauUrl: "https://public.tableau.com/app/profile/aman.bhamboo/viz/OlistAnalyticsDashboard_17812419259250/OlistExecutiveOverview",
     tableauViz: "OlistAnalyticsDashboard_17812419259250/FulfillmentLogistics",
@@ -52,7 +53,6 @@ const projects = [
     id: 3,
     title: "Discount Hurts? / Revenue Leakage Audit",
     icon: TrendingDown,
-    image: "/projects/project3.png",
     githubUrl: "https://github.com/AmanKumarBhamboo/does_discount_hurt",
     tableauUrl: "https://public.tableau.com/app/profile/aman.bhamboo/viz/Discounthurts/CorporateRevenueLeakage",
     tableauViz: "Discounthurts/CorporateRevenueLeakage",
@@ -79,12 +79,6 @@ export const ProjectsSection = () => {
   const [detailVisible, setDetailVisible] = useState(false);
   const [listLeaving, setListLeaving] = useState(false);
   const [hoveredId, setHoveredId] = useState(null);
-
-  const hoverColors = {
-    1: "#2962ff",
-    2: "#1a4fbf",
-    3: "#0d47a1",
-  };
 
   const openDetail = (id) => {
     const p = projects.find((x) => x.id === id);
@@ -116,30 +110,30 @@ export const ProjectsSection = () => {
   };
 
   return (
-    <section id="projects" className="py-24 px-4 relative">
-      <div className="container mx-auto max-w-5xl">
+    <section id="projects" className="h-screen py-16 px-4 relative flex flex-col items-center justify-center overflow-y-auto snap-start snap-always">
+      <div className="container mx-auto max-w-5xl w-full">
         {activeId ? (
           <div className="flex gap-8 lg:gap-16">
             <div className="hidden md:flex md:w-48 lg:w-56 shrink-0 flex-col gap-6 pt-2">
-              <h2 className="text-2xl lg:text-3xl font-bold">
-                Featured <span className="text-primary">Projects</span>
+              <h2 className="font-serif text-2xl lg:text-3xl font-normal">
+                Featured Projects
               </h2>
               {detailData && (() => {
                 const Icon = detailData.icon;
                 return (
                   <>
                     <div className="flex items-center gap-3 md:flex-col md:items-start">
-                      <div className="p-3 rounded-full bg-primary/10 shrink-0">
+                      <div className="p-3 border border-primary/30 shrink-0">
                         <Icon className="h-6 w-6 text-primary" />
                       </div>
                       <div>
-                        <h3 className="text-base md:text-lg font-semibold">{detailData.title}</h3>
-                        <span className="text-xs text-muted-foreground">
-                          Project {detailData.id} of {projects.length}
+                        <h3 className="text-base md:text-lg font-mono">{detailData.title}</h3>
+                        <span className="text-xs text-muted-foreground font-mono">
+                          project {detailData.id}/{projects.length}
                         </span>
                       </div>
                     </div>
-                    <div className="border border-border/40 rounded-lg p-4 shadow-xs space-y-3">
+                    <div className="border border-border/40 p-4 space-y-3 font-mono">
                       <a
                         href={detailData.githubUrl}
                         target="_blank"
@@ -147,7 +141,7 @@ export const ProjectsSection = () => {
                         className="flex items-center gap-2 text-sm text-foreground/70 hover:text-primary transition-colors"
                       >
                         <Github className="h-4 w-4" />
-                        Github
+                        github
                       </a>
                       <a
                         href={detailData.tableauUrl}
@@ -156,7 +150,7 @@ export const ProjectsSection = () => {
                         className="flex items-center gap-2 text-sm text-foreground/70 hover:text-primary transition-colors"
                       >
                         <ExternalLink className="h-4 w-4" />
-                        Tableau
+                        tableau
                       </a>
                     </div>
                   </>
@@ -164,8 +158,8 @@ export const ProjectsSection = () => {
               })()}
             </div>
             <div className="flex-1 min-w-0">
-              <h2 className="text-3xl font-bold mb-10 text-center md:hidden">
-                Featured <span className="text-primary">Projects</span>
+              <h2 className="font-serif text-3xl font-normal mb-10 text-center md:hidden">
+                Featured Projects
               </h2>
               <div className="grid grid-cols-1">
                 <div
@@ -186,9 +180,17 @@ export const ProjectsSection = () => {
           </div>
         ) : (
           <>
-            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
-              Featured <span className="text-primary">Projects</span>
-            </h2>
+            <div className="text-center mb-16">
+              <span className="eyebrow text-center">Selected Work</span>
+              <h2 className="font-serif text-3xl md:text-5xl font-normal">Featured Projects</h2>
+            </div>
+            <Reveal className="mb-10 text-left max-w-xl mx-auto">
+              <TerminalWindow title="aman@bhamboo — ~/projects">
+                <p className="text-primary">
+                  <span className="mr-2">$</span>ls -la ~/projects
+                </p>
+              </TerminalWindow>
+            </Reveal>
             <div className="grid grid-cols-1">
               <div
                 className={`col-start-1 row-start-1 transition-all duration-200 ease-out ${
@@ -198,52 +200,45 @@ export const ProjectsSection = () => {
                 }`}
               >
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  {projects.map((project) => (
-                    <div
+                  {projects.map((project, i) => (
+                    <Reveal
                       key={project.id}
+                      delay={i * 100}
                       onMouseEnter={() => setHoveredId(project.id)}
                       onMouseLeave={() => setHoveredId(null)}
-                      className="group rounded-xl overflow-hidden cursor-pointer transition-all duration-500 hover:scale-[1.03]"
-                      style={{
-                        backgroundColor: hoveredId === project.id ? hoverColors[project.id] : "rgba(255,255,255,0.6)",
-                        backdropFilter: "blur(12px)",
-                        WebkitBackdropFilter: "blur(12px)",
-                        border: "1px solid",
-                        borderColor: hoveredId === project.id ? hoverColors[project.id] : "rgba(238,235,229,0.8)",
-                        boxShadow: hoveredId === project.id
-                          ? `0 8px 32px ${hoverColors[project.id]}33`
-                          : "0 1px 3px rgba(0,0,0,0.04)",
-                        transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
-                      }}
+                      className={cn(
+                        "group panel overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-1",
+                        hoveredId === project.id && "border-primary/50"
+                      )}
                     >
                       <div onClick={() => openDetail(project.id)}>
-                        <div className="aspect-[4/3] overflow-hidden">
-                          <img
-                            src={project.image}
-                            alt={`${project.title} - Aman Bhamboo`}
-                            loading="lazy"
-                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                          />
+                        <div className="p-5 flex items-start gap-4">
+                          <div className="p-3 border border-primary/30 shrink-0 transition-colors duration-300 group-hover:border-primary/60">
+                            <project.icon className="h-5 w-5 text-primary" />
+                          </div>
+                          <div className="min-w-0">
+                            <div className="flex items-center justify-between gap-2">
+                              <h3 className="font-serif text-lg truncate min-w-0">{project.title}</h3>
+                              <span className="text-[10px] font-mono text-muted-foreground/60 shrink-0">
+                                {String(i + 1).padStart(2, "0")}/{String(projects.length).padStart(2, "0")}
+                              </span>
+                            </div>
+                            <p className="text-xs font-mono text-muted-foreground/70 mt-1 truncate">
+                              ~/projects/{project.title.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "")}.md
+                            </p>
+                          </div>
                         </div>
-                        <div className="p-4">
-                          <h3 className="font-semibold text-base"
-                            style={{
-                              color: hoveredId === project.id ? "#fff" : undefined,
-                              transition: "color 0.3s ease",
-                            }}
-                          >{project.title}</h3>
-                        </div>
+                        <p className="px-5 text-xs text-muted-foreground leading-relaxed line-clamp-3">
+                          {project.summary}
+                        </p>
                       </div>
-                      <div className="px-4 pb-4 flex gap-3">
+                      <div className="px-5 py-5 mt-2 flex gap-4">
                         <a
                           href={project.githubUrl}
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={(e) => e.stopPropagation()}
-                          className="flex items-center gap-1.5 text-xs transition-colors"
-                          style={{
-                            color: hoveredId === project.id ? "rgba(255,255,255,0.8)" : "rgba(36,39,44,0.6)",
-                          }}
+                          className="flex items-center gap-1.5 text-xs uppercase tracking-wider text-muted-foreground transition-colors hover:text-primary"
                         >
                           <Github className="h-3.5 w-3.5" />
                           Github
@@ -253,16 +248,13 @@ export const ProjectsSection = () => {
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={(e) => e.stopPropagation()}
-                          className="flex items-center gap-1.5 text-xs transition-colors"
-                          style={{
-                            color: hoveredId === project.id ? "rgba(255,255,255,0.8)" : "rgba(36,39,44,0.6)",
-                          }}
+                          className="flex items-center gap-1.5 text-xs uppercase tracking-wider text-muted-foreground transition-colors hover:text-primary"
                         >
                           <ExternalLink className="h-3.5 w-3.5" />
                           Tableau
                         </a>
                       </div>
-                    </div>
+                    </Reveal>
                   ))}
                 </div>
               </div>
@@ -286,12 +278,14 @@ const ProjectDetail = ({ project, onBack, onNext }) => {
     return () => { document.body.style.overflow = ""; };
   }, [showDashboard]);
 
+  const slug = project.title.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "");
+
   return (
-    <div className="max-w-5xl mx-auto">
-      <div className="bg-card rounded-lg shadow-xs border border-border/40 overflow-hidden">
-        <div className="p-8 space-y-6">
+    <div className="max-w-5xl mx-auto text-left">
+      <TerminalWindow title={`aman@bhamboo — ~/projects/${slug}.md`}>
+        <div className="space-y-6">
           <div>
-            <h4 className="font-semibold text-base mb-2 text-primary">The Simple Story</h4>
+            <h4 className="font-serif text-lg mb-2 text-primary">The Simple Story</h4>
             <p className="text-sm text-muted-foreground leading-relaxed">{project.summary}</p>
             <div className="mt-3 bg-primary/5 border border-primary/10 rounded-lg p-4">
               <p className="text-sm font-medium text-foreground/80">
@@ -302,12 +296,12 @@ const ProjectDetail = ({ project, onBack, onNext }) => {
           </div>
 
           <div>
-            <h4 className="font-semibold text-base mb-2 text-primary">Scope</h4>
+            <h4 className="font-serif text-lg mb-2 text-primary">Scope</h4>
             <p className="text-sm text-muted-foreground leading-relaxed">{project.scope}</p>
           </div>
 
           <div>
-            <h4 className="font-semibold text-base mb-3 text-primary">Key Numbers</h4>
+            <h4 className="font-serif text-lg mb-3 text-primary">Key Numbers</h4>
             <div className="space-y-2">
               {project.metrics.map((m, i) => (
                 <div key={i} className="flex items-start gap-2">
@@ -319,7 +313,7 @@ const ProjectDetail = ({ project, onBack, onNext }) => {
           </div>
 
           <div>
-            <h4 className="font-semibold text-base mb-3 text-primary">Skills Used</h4>
+            <h4 className="font-serif text-lg mb-3 text-primary">Skills Used</h4>
             <div className="space-y-2">
               {project.skills.map((s, i) => (
                 <div key={i} className="flex items-start gap-2">
@@ -334,7 +328,7 @@ const ProjectDetail = ({ project, onBack, onNext }) => {
             {project.tableauViz && (
               <button
                 onClick={() => setShowDashboard(true)}
-                className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors"
+                className="hidden md:inline-flex btn-solid"
               >
                 <ExternalLink className="h-4 w-4" />
                 Dashboard
@@ -352,14 +346,14 @@ const ProjectDetail = ({ project, onBack, onNext }) => {
             </button>
             <button
               onClick={onNext}
-              className="px-5 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors flex items-center gap-2"
+              className="btn-solid"
             >
               Next Project
               <ArrowRight className="h-4 w-4" />
             </button>
           </div>
         </div>
-      </div>
+      </TerminalWindow>
 
       {showDashboard && (
         <div

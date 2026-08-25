@@ -1,80 +1,76 @@
-import { useEffect, useState } from "react";
 import { TechStrip } from "./TechStrip";
+import { TerminalWindow } from "./TerminalWindow";
+import { Typewriter } from "./Typewriter";
 
-const TYPING_SPEED = 130;
-const ERASE_SPEED = 30;
-const PAUSE = 2000;
-
-const words = ["Aman Bhamboo", "Aman Bhamboo"];
+const introLines = [
+  { prompt: "$", text: "whoami" },
+  { text: "Aman Bhamboo — Data Analyst & Researcher" },
+  { prompt: "$", text: "cat currently.txt" },
+  { text: "Going deep on Rust & systems programming — ownership, memory," },
+  { text: "and building things closer to the machine." },
+];
 
 export const HeroSection = () => {
-  const [text, setText] = useState("");
-  const [i, setI] = useState(0);
-  const [charI, setCharI] = useState(0);
-  const [deleting, setDeleting] = useState(false);
-  const [pausing, setPausing] = useState(false);
-
-  useEffect(() => {
-    const current = words[i];
-
-    if (pausing) {
-      const t = setTimeout(() => setPausing(false), PAUSE);
-      return () => clearTimeout(t);
-    }
-
-    if (!deleting) {
-      if (charI > current.length) {
-        setPausing(true);
-        setDeleting(true);
-        return;
-      }
-      const t = setTimeout(() => {
-        setText(current.slice(0, charI));
-        setCharI((c) => c + 1);
-      }, TYPING_SPEED);
-      return () => clearTimeout(t);
-    }
-
-    if (charI < 0) {
-      setDeleting(false);
-      setI((p) => (p + 1) % words.length);
-      setCharI(0);
-      return;
-    }
-    const t = setTimeout(() => {
-      setText(current.slice(0, charI));
-      setCharI((c) => c - 1);
-    }, ERASE_SPEED);
-    return () => clearTimeout(t);
-  }, [charI, deleting, i, pausing]);
-
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col items-center justify-center px-4"
+      className="relative h-screen flex flex-col items-center justify-center px-4 overflow-y-auto snap-start snap-always"
     >
-      <div className="container max-w-4xl mx-auto text-center z-10">
-        <div className="space-y-6">
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
-            <span>Hi, I&apos;m<br /></span>
-            <span className="text-primary">{text}</span>
-            <span className="inline-block w-[3px] h-[0.9em] bg-primary ml-1 align-middle animate-blink" />
-          </h1>
+      <div className="container max-w-6xl mx-auto z-10">
+        <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <div className="space-y-8 text-center md:text-left">
+            <span className="eyebrow opacity-0 animate-fade-in">
+              Data Analyst &amp; Researcher
+            </span>
 
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto opacity-0 animate-fade-in-delay-3">
-            I extract meaningful insights from data using modern analytical tools.
-            Specializing in analysis and research, I transform complex datasets into clear, actionable, and impactful outcomes.
-          </p>
+            <h1 className="font-serif text-5xl md:text-7xl font-normal tracking-tight opacity-0 animate-fade-in-delay-1">
+              Aman Bhamboo
+            </h1>
 
-          <div className="pt-4 opacity-0 animate-fade-in-delay-4">
-            <a href="#projects" className="cosmic-button">
-              View My Work
-            </a>
+            <div className="opacity-0 animate-fade-in-delay-2 max-w-xl mx-auto md:mx-0 text-left relative">
+              <div
+                className="absolute -inset-8 md:-inset-12 bg-primary/25 blur-3xl rounded-full -z-10"
+                aria-hidden="true"
+              />
+              <TerminalWindow
+                title="aman@bhamboo — zsh"
+                className="shadow-[0_0_90px_-20px_hsl(var(--primary)/0.55)]"
+                bodyClassName="h-56 overflow-hidden"
+              >
+                <Typewriter lines={introLines} />
+              </TerminalWindow>
+            </div>
+
+            <div className="pt-4 opacity-0 animate-fade-in-delay-3">
+              <a href="#projects" className="btn-outline">
+                View My Work
+              </a>
+            </div>
           </div>
 
-          <div className="opacity-0 animate-fade-in" style={{ animationDelay: "1.2s", animationFillMode: "forwards" }}>
-            <TechStrip />
+          <div className="opacity-0 animate-fade-in-delay-2 flex justify-center md:justify-end mt-4 md:mt-10">
+            <div className="relative">
+              <div
+                className="absolute inset-0 bg-primary/20 blur-[80px] rounded-full"
+                aria-hidden="true"
+              />
+              <img
+                src="/background.png"
+                alt="Illustrated avatar of Aman Bhamboo at a terminal"
+                className="relative max-h-[360px] sm:max-h-[440px] md:max-h-[560px] w-auto object-contain drop-shadow-[0_0_50px_hsl(var(--primary)/0.3)]"
+                style={{
+                  WebkitMaskImage:
+                    "linear-gradient(to bottom, black 55%, transparent 92%)",
+                  maskImage:
+                    "linear-gradient(to bottom, black 55%, transparent 92%)",
+                }}
+              />
+            </div>
           </div>
+        </div>
+
+        <div className="mt-8 opacity-0 animate-fade-in-delay-4">
+          <TechStrip />
         </div>
       </div>
     </section>
