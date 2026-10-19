@@ -1,5 +1,4 @@
-import { Download } from "lucide-react";
-import { profile, skillGroups } from "@/data/content";
+import { skillGroups } from "@/data/content";
 import { Section } from "../Section";
 import { Reveal } from "../Reveal";
 
@@ -15,9 +14,6 @@ export const About = () => (
         memory, concurrency and performance work closer to the metal, and using that mindset to
         write faster, more reliable data tooling.
       </p>
-      <a href={profile.resume} download className="btn mt-4">
-        <Download size={16} /> Download résumé
-      </a>
     </Reveal>
 
     <div className="mt-20 grid gap-x-12 gap-y-14 md:grid-cols-2">

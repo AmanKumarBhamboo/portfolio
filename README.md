@@ -67,7 +67,7 @@ DATABASE_URL=postgresql://...
 ```
 ├── api/               # Vercel serverless entry point
 ├── backend/           # Express server, routes, DB config
-├── public/            # Static assets, resume, favicon, sitemap
+├── public/            # Static assets, favicon, sitemap
 ├── src/
 │   ├── components/    # React components
 │   ├── pages/         # Page components

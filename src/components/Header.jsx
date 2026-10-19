@@ -28,9 +28,6 @@ export const Header = () => {
               {l.label}
             </Link>
           ))}
-          <a href={profile.resume} download className="btn !px-4 !py-2">
-            Résumé
-          </a>
         </nav>
 
         <button
@@ -55,9 +52,6 @@ export const Header = () => {
               {l.label}
             </Link>
           ))}
-          <a href={profile.resume} download className="label pt-4">
-            Download résumé ↓
-          </a>
         </nav>
       )}
     </header>

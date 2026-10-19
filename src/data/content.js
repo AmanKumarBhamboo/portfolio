@@ -6,7 +6,6 @@ export const profile = {
   phone: "+91 63677 55376",
   phoneHref: "tel:+916367755376",
   location: "Jhunjhunu, India",
-  resume: "/Aman_Kumar_Bhamboo_Resume.pdf",
   socials: [
     { label: "GitHub", href: "https://github.com/AmanKumarBhamboo" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/aman1402/" },
