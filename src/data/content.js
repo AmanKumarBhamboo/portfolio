@@ -223,23 +223,21 @@ export const watches = [
     model: "AV3579X1",
     title: "Men's quartz, green gradient dial",
     detail: "Analog steel watch with a green gradient dial.",
-    href: "https://justintime.in/products/alba-men-quartz-green-gradiant-dial-analog-steel-watch-av3579x1?variant=52921369166099",
-    source: "justintime.in",
+    image: "/watches/alba-av3579x1.jpg",
   },
   {
     brand: "Casio",
     model: "Enticer A2342",
     title: "Men's quartz, brown dial",
     detail: "Analog stainless steel watch with a brown dial.",
-    href: "https://justintime.in/products/casio-enticer-men-quartz-brown-dial-analog-stainless-steel-watch-a2342?variant=50060485525779",
-    source: "justintime.in",
+    image: "/watches/casio-a2342.jpg",
   },
   {
     brand: "HMT",
     model: "Sona",
     title: "A classic HMT",
     detail: "On the list for the HMT name as much as the watch itself.",
-    href: null,
-    source: null,
+    // Drop a photo at public/watches/hmt-sona.jpg and set image to "/watches/hmt-sona.jpg"
+    image: null,
   },
 ];

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowUpRight, Send } from "lucide-react";
+import { Send } from "lucide-react";
 import { watches } from "@/data/content";
 import { useToast } from "@/hooks/use-toast";
 import { Section } from "../Section";
@@ -55,38 +55,31 @@ export const Watches = () => {
       </Reveal>
 
       <ul className="mt-12 border-t border-foreground">
-        {watches.map((w, i) => {
-          const body = (
-            <>
-              <span className="label md:pt-2">{String(i + 1).padStart(2, "0")}</span>
-              <div>
-                <h3 className="text-3xl leading-tight transition-colors group-hover:text-primary md:text-4xl">
+        {watches.map((w, i) => (
+          <Reveal as="li" key={w.model} delay={i * 80} className="border-b border-border">
+            <div className="flex items-center gap-5 py-6 sm:gap-8 md:gap-10">
+              <span className="label hidden w-8 shrink-0 md:block">{String(i + 1).padStart(2, "0")}</span>
+              <div className="flex aspect-square w-28 shrink-0 items-center justify-center overflow-hidden border border-border bg-card sm:w-40 md:w-48">
+                {w.image ? (
+                  <img
+                    src={w.image}
+                    alt={`${w.brand} ${w.model} watch`}
+                    loading="lazy"
+                    className="h-full w-full object-cover mix-blend-multiply"
+                  />
+                ) : (
+                  <WatchDial className="w-2/3 text-muted-foreground/50" />
+                )}
+              </div>
+              <div className="min-w-0">
+                <h3 className="text-3xl leading-tight md:text-5xl">
                   {w.brand} <span className="italic">{w.model}</span>
                 </h3>
                 <p className="mt-2 text-muted-foreground">{w.title}. {w.detail}</p>
-                {w.source && <p className="label mt-3">{w.source}</p>}
               </div>
-              {w.href && (
-                <ArrowUpRight
-                  size={26}
-                  className="hidden shrink-0 text-muted-foreground transition-all group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-primary md:block"
-                />
-              )}
-            </>
-          );
-          const cls = "group grid gap-3 py-7 md:grid-cols-[3rem_1fr_auto] md:gap-6";
-          return (
-            <Reveal as="li" key={w.model} delay={i * 80} className="border-b border-border">
-              {w.href ? (
-                <a href={w.href} target="_blank" rel="noopener noreferrer" className={cls}>
-                  {body}
-                </a>
-              ) : (
-                <div className={cls}>{body}</div>
-              )}
-            </Reveal>
-          );
-        })}
+            </div>
+          </Reveal>
+        ))}
       </ul>
 
       <Reveal className="mt-16">
