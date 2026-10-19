@@ -3,15 +3,15 @@ import { profile } from "@/data/content";
 import { ChartArt } from "./ChartArt";
 
 export const Hero = () => (
-  <section className="relative overflow-hidden pb-12 pt-10 md:pb-16 md:pt-14">
+  <section className="relative overflow-hidden pb-10 pt-5 md:pb-14 md:pt-7">
     <div className="dot-grid pointer-events-none absolute inset-0" aria-hidden="true" />
     <div className="wrap relative">
       <p className="label animate-rise">{profile.role} · {profile.location}</p>
 
-      <h1 className="mt-4 max-w-5xl text-[3.4rem] leading-[0.98] animate-rise [animation-delay:120ms] sm:text-7xl md:text-[7.5rem]">
+      <h1 className="mt-3 max-w-5xl text-balance text-[3.4rem] leading-[0.95] animate-rise [animation-delay:120ms] sm:text-7xl md:text-[6.75rem]">
         Turning messy data into <em className="text-primary">decisions</em> people can act on.
       </h1>
-      <div className="mt-8 grid items-end gap-8 md:mt-10 md:gap-12 md:grid-cols-12 animate-rise [animation-delay:260ms]">
+      <div className="mt-4 grid items-end gap-8 md:mt-5 md:gap-12 md:grid-cols-12 animate-rise [animation-delay:260ms]">
         <div className="md:col-span-6">
           <p className="max-w-xl text-lg text-muted-foreground md:text-xl">
             I&rsquo;m {profile.short} — I build dashboards, pipelines and research that make large
