@@ -1,241 +1,76 @@
 @import "tailwindcss";
 
 @theme {
-  --color-border: hsl(var(--border));
-  --color-input: hsl(var(--input));
-  --color-background: hsl(var(--background));
-  --color-foreground: hsl(var(--foreground));
+  --color-background: #f5f2ea;
+  --color-foreground: #16140f;
+  --color-card: #fbf9f4;
+  --color-border: #d9d3c4;
+  --color-input: #d9d3c4;
+  --color-muted-foreground: #6b665a;
+  --color-primary: #d4421c;
+  --color-primary-foreground: #fbf9f4;
+  --color-secondary: #ece7da;
+  --color-secondary-foreground: #16140f;
+  --color-destructive: #b3261e;
+  --color-destructive-foreground: #fbf9f4;
+  --color-ring: #d4421c;
+  --color-muted: #ece7da;
 
-  --color-primary: hsl(var(--primary));
-  --color-primary-foreground: hsl(var(--primary-foreground));
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Instrument Serif", "Times New Roman", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 
-  --color-secondary: hsl(var(--secondary));
-  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --animate-rise: rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
 
-  --color-muted-foreground: hsl(var(--muted-foreground));
-
-  --color-card: hsl(var(--card));
-  --color-card-foreground: hsl(var(--card-foreground));
-
-  --font-sans: "Inter", "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
-  --font-serif: "JetBrains Mono", "Fira Code", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
-  --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
-
-  --animate-fade-in: fade-in 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  --animate-fade-in-delay-1: fade-in 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
-  --animate-fade-in-delay-2: fade-in 1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
-  --animate-fade-in-delay-3: fade-in 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
-  --animate-fade-in-delay-4: fade-in 1s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;
-  --animate-smooth-appear: smooth-appear 0.4s cubic-bezier(0.16, 1, 0.3, 1)
-    forwards;
-  --animate-smooth-disappear: fade-out-blur 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)
-    forwards;
-  --animate-fade-out: fade-out 0.3s ease-out forwards;
-  --animate-slide-out-up: slide-out-up 0.3s ease-in forwards;
-  --animate-slide-in-up: slide-in-up 0.4s ease-out forwards;
-  --animate-scroll: scroll 28s linear infinite;
-
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-      transform: translateY(16px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  @keyframes fade-out {
-    from {
-      opacity: 1;
-    }
-    to {
-      opacity: 0;
-    }
-  }
-  @keyframes slide-out-up {
-    to {
-      transform: translateY(-20px);
-      opacity: 0;
-    }
-  }
-  @keyframes slide-in-up {
-    from {
-      transform: translateY(20px);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-  @keyframes smooth-appear {
-    0% {
-      opacity: 0;
-      transform: translateY(12px) scale(0.97);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
-  @keyframes fade-out-blur {
-    0% {
-      opacity: 1;
-      filter: blur(0);
-      transform: translateY(0);
-    }
-    100% {
-      opacity: 0;
-      filter: blur(8px);
-      transform: translateY(-10px);
-    }
-  }
-  @keyframes scroll {
-    0% { transform: translate3d(0,0,0); }
-    100% { transform: translate3d(-50%,0,0); }
-  }
-  @keyframes cursor-blink {
-    0%, 49% { opacity: 1; }
-    50%, 100% { opacity: 0; }
-  }
-}
-
-@layer components {
-  .slide-out-up {
-    animation: slide-out-up 0.2s ease-in forwards;
-  }
-  .slide-in-up {
-    animation: slide-in-up 0.3s ease-out forwards;
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 }
 
 @layer base {
-  :root {
-    --background: 220 22% 5%;
-    --foreground: 150 10% 90%;
-
-    --card: 220 20% 8%;
-    --card-foreground: 150 10% 90%;
-
-    --primary: 152 55% 52%;
-    --primary-foreground: 220 25% 6%;
-
-    --secondary: 220 16% 13%;
-    --secondary-foreground: 150 8% 80%;
-
-    --muted-foreground: 210 10% 58%;
-
-    --border: 220 14% 18%;
-    --input: 220 14% 18%;
-  }
-
-  * {
-    @apply border-border;
-  }
-
-  html {
-    @apply scroll-smooth bg-background text-foreground;
-    scroll-snap-type: y mandatory;
-    scroll-padding-top: 5rem;
-  }
-
+  * { @apply border-border; }
+  html { @apply scroll-smooth; scroll-padding-top: 5rem; }
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground font-sans antialiased;
+    font-size: 17px;
+    line-height: 1.6;
   }
-
-  h1, h2, h3, h4 {
-    @apply font-serif;
-  }
-
-  ::selection {
-    background: hsl(var(--primary) / 0.3);
-    color: hsl(var(--foreground));
-  }
-
-  a, button, input, textarea, [role="button"] {
-  }
-
-  @media (pointer: coarse) {
-    body, a, button, input, textarea, [role="button"] {
-      cursor: auto;
-    }
-  }
-
-  @media (pointer: fine) {
-    body.custom-cursor-active * {
-      cursor: none !important;
-    }
-  }
+  h1, h2, h3 { @apply font-display font-normal; letter-spacing: -0.015em; }
+  ::selection { background: #d4421c; color: #fbf9f4; }
+  :focus-visible { outline: 2px solid var(--color-primary); outline-offset: 3px; }
 }
 
-@utility container {
+@utility wrap {
+  width: 100%;
+  max-width: 72rem;
   margin-inline: auto;
-  padding-inline: 2rem;
-
-  @media (width >= 640px) {
-    max-width: 640px;
-  }
-  @media (width >= 768px) {
-    max-width: 768px;
-  }
-  @media (width >= 1024px) {
-    max-width: 1024px;
-  }
-  @media (width >= 1280px) {
-    max-width: 1280px;
-  }
-  @media (width >= 1400px) {
-    max-width: 1400px;
-  }
+  padding-inline: 1.5rem;
+  @media (width >= 768px) { padding-inline: 2.5rem; }
 }
 
-@utility eyebrow {
-  @apply block text-xs uppercase tracking-[0.3em] text-muted-foreground mb-4 font-mono;
-
-  &::before {
-    content: "// ";
-    color: hsl(var(--primary) / 0.7);
-  }
+@utility label {
+  @apply font-mono text-[0.72rem] uppercase tracking-[0.16em] text-muted-foreground;
 }
 
-@utility terminal-cursor {
-  @apply inline-block w-[0.55em] h-[1.05em] bg-primary align-middle ml-0.5;
-  animation: cursor-blink 1s step-end infinite;
+@utility link-u {
+  @apply underline decoration-border underline-offset-4 transition-colors hover:decoration-primary hover:text-primary;
+  text-decoration-thickness: 1.5px;
 }
 
-@utility panel {
-  @apply relative rounded-lg border border-border/60 bg-card transition-colors duration-300;
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-full border border-foreground px-6 py-3
+         font-mono text-xs uppercase tracking-[0.12em] transition-colors duration-200
+         hover:bg-foreground hover:text-background disabled:opacity-60;
 }
 
-@utility no-scrollbar {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
+@utility btn-primary {
+  @apply inline-flex items-center justify-center gap-2 rounded-full border border-primary bg-primary px-6 py-3
+         font-mono text-xs uppercase tracking-[0.12em] text-primary-foreground transition-colors duration-200
+         hover:bg-foreground hover:border-foreground disabled:opacity-60;
 }
 
-@utility card-hover {
-  @apply transition-all duration-300 hover:border-primary/40 hover:-translate-y-0.5;
-}
-
-@utility btn-outline {
-  @apply inline-flex items-center gap-2 px-7 py-3 rounded-none border border-primary/50 text-foreground
-         text-xs uppercase tracking-[0.2em] font-mono font-medium
-         transition-all duration-300 hover:border-primary hover:bg-primary/5;
-}
-
-@utility btn-solid {
-  @apply inline-flex items-center justify-center gap-2 px-7 py-3 rounded-none bg-primary text-primary-foreground
-         text-xs uppercase tracking-[0.2em] font-mono font-medium
-         transition-all duration-300 hover:opacity-90;
-}
-
-#root {
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 0;
-  text-align: center;
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }

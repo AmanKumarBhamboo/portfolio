@@ -1,47 +1,34 @@
-import { forwardRef, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-export const Reveal = forwardRef(
-  ({ children, className = "", delay = 0, as: Tag = "div", ...rest }, forwardedRef) => {
-    const ref = useRef(null);
-    const [visible, setVisible] = useState(false);
+export const Reveal = ({ children, className = "", delay = 0, as: Tag = "div" }) => {
+  const ref = useRef(null);
+  const [shown, setShown] = useState(false);
 
-    useEffect(() => {
-      const el = ref.current;
-      if (!el) return;
-
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setVisible(true);
-            observer.unobserve(el);
-          }
-        },
-        { threshold: 0.15 }
-      );
-
-      observer.observe(el);
-      return () => observer.disconnect();
-    }, []);
-
-    const setRefs = (node) => {
-      ref.current = node;
-      if (typeof forwardedRef === "function") forwardedRef(node);
-      else if (forwardedRef) forwardedRef.current = node;
-    };
-
-    return (
-      <Tag
-        ref={setRefs}
-        className={`transition-all duration-1000 ease-out ${
-          visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-        } ${className}`}
-        style={{ transitionDelay: `${delay}ms` }}
-        {...rest}
-      >
-        {children}
-      </Tag>
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          setShown(true);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.1 }
     );
-  }
-);
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
-Reveal.displayName = "Reveal";
+  return (
+    <Tag
+      ref={ref}
+      style={{ transitionDelay: `${delay}ms` }}
+      className={`transition-all duration-700 ease-out ${
+        shown ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
+      } ${className}`}
+    >
+      {children}
+    </Tag>
+  );
+};

@@ -1,17 +1,20 @@
-import { ArrowUp } from "lucide-react";
+import { profile } from "@/data/content";
 
-export const Footer = () => {
-  return (
-    <footer className="py-8 px-4 bg-background relative border-t border-border/60 flex flex-wrap justify-between items-center snap-end snap-always">
-      <p className="text-xs uppercase tracking-wider font-mono text-muted-foreground">
-        <span className="text-primary">$</span> echo &quot;&copy; {new Date().getFullYear()} Aman Kumar Bhamboo&quot;
+export const Footer = () => (
+  <footer className="border-t border-border">
+    <div className="wrap flex flex-col gap-4 py-8 md:flex-row md:items-center md:justify-between">
+      <p className="label">
+        © {new Date().getFullYear()} {profile.name}
       </p>
-      <a
-        href="#hero"
-        className="p-2 border border-border/60 hover:border-primary/50 text-primary transition-colors"
-      >
-        <ArrowUp size={18} />
-      </a>
-    </footer>
-  );
-};
+      <ul className="flex gap-6">
+        {profile.socials.map((s) => (
+          <li key={s.label}>
+            <a href={s.href} target="_blank" rel="noopener noreferrer" className="label link-u">
+              {s.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </footer>
+);
