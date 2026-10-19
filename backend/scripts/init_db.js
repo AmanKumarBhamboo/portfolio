@@ -14,13 +14,22 @@ const createTableQuery = `
         message TEXT NOT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
+
+    CREATE TABLE IF NOT EXISTS watch_suggestions (
+        id SERIAL PRIMARY KEY,
+        watch VARCHAR(200) NOT NULL,
+        link VARCHAR(500),
+        name VARCHAR(100),
+        note TEXT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
 `;
 
 const initDB = async () => {
     try {
         console.log("🔌 Connecting to database...");
         await getPool().query(createTableQuery);
-        console.log("✅ 'contacts' table created or already exists.");
+        console.log("✅ 'contacts' and 'watch_suggestions' tables created or already exist.");
         
         // Optional: Verify by selecting
         const res = await getPool().query("SELECT NOW()");

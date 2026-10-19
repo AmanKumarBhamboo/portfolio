@@ -9,6 +9,7 @@ import express from "express";
 import cors from "cors";
 
 import contactRoutes from "./routes/contact.routes.js";
+import watchRoutes from "./routes/watches.routes.js";
 
 const app = express();
 const PORT = 5050;
@@ -31,6 +32,7 @@ app.get("/test", (req, res) => {
 
 /* 🔹 ROUTES */
 app.use("/api/contact", contactRoutes);
+app.use("/api/watches", watchRoutes);
 
 if (process.env.NODE_ENV !== "production") {
     app.listen(PORT, () => {

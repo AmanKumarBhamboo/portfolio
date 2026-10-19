@@ -4,7 +4,7 @@ import { Section } from "../Section";
 import { Reveal } from "../Reveal";
 
 export const Now = () => (
-  <Section id="now" index="05 — Now" title="Currently learning Rust.">
+  <Section id="now" index="06 — Now" title="Currently learning Rust.">
     <Reveal>
       <p className="max-w-2xl text-lg text-muted-foreground md:text-xl">{rust.intro}</p>
       <ul className="mt-10 grid border-t border-foreground sm:grid-cols-2 sm:gap-x-12">

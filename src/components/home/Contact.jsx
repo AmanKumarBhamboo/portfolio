@@ -43,7 +43,7 @@ export const Contact = () => {
   };
 
   return (
-    <Section id="contact" index="06 — Contact" title="Let's work together.">
+    <Section id="contact" index="07 — Contact" title="Let's work together.">
       <Reveal>
         <a
           href={`mailto:${profile.email}`}
