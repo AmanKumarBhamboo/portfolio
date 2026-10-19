@@ -14,12 +14,6 @@ export const profile = {
   ],
 };
 
-export const stats = [
-  { value: "3.1M", label: "LAPD records processed in an under-6-minute ETL" },
-  { value: "₹229B", label: "in sales audited for discount leakage" },
-  { value: "IEEE", label: "published research on brain MRI segmentation" },
-];
-
 export const projects = [
   {
     slug: "la-crime-analysis",

@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { Hero } from "@/components/home/Hero";
+import { Ticker } from "@/components/home/Ticker";
 import { Work } from "@/components/home/Work";
 import { Erp } from "@/components/home/Erp";
 import { Research } from "@/components/home/Research";
@@ -23,6 +24,7 @@ export const Home = () => (
       <meta name="twitter:description" content={desc} />
     </Helmet>
     <Hero />
+    <Ticker />
     <Work />
     <Erp />
     <Research />

@@ -1,9 +1,11 @@
 import { ArrowDownRight } from "lucide-react";
-import { profile, stats } from "@/data/content";
+import { profile } from "@/data/content";
+import { ChartArt } from "./ChartArt";
 
 export const Hero = () => (
-  <section className="pb-16 pt-14 md:pb-24 md:pt-24">
-    <div className="wrap">
+  <section className="relative overflow-hidden pb-16 pt-14 md:pb-24 md:pt-24">
+    <div className="dot-grid pointer-events-none absolute inset-0" aria-hidden="true" />
+    <div className="wrap relative">
       <p className="label animate-rise">{profile.role} · {profile.location}</p>
 
       <h1 className="mt-6 max-w-5xl text-[3.4rem] leading-[0.98] animate-rise [animation-delay:120ms] sm:text-7xl md:text-[7.5rem]">
@@ -23,17 +25,7 @@ export const Hero = () => (
         </div>
       </div>
 
-      <dl className="mt-20 grid border-t border-border sm:grid-cols-3 animate-rise [animation-delay:400ms]">
-        {stats.map((s, i) => (
-          <div
-            key={s.value}
-            className={`py-6 sm:pr-6 ${i > 0 ? "border-t border-border sm:border-l sm:border-t-0 sm:pl-6" : ""}`}
-          >
-            <dt className="font-display text-5xl md:text-6xl">{s.value}</dt>
-            <dd className="mt-2 max-w-[18rem] text-sm text-muted-foreground">{s.label}</dd>
-          </div>
-        ))}
-      </dl>
+      <ChartArt className="mt-16 ml-auto w-full max-w-xl text-foreground" />
     </div>
   </section>
 );
